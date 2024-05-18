@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poetsen+One&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #ecf5f4;
+            overflow: hidden;
+            background: #3b0e68;
+            background: radial-gradient(circle, #3b0e68 0%, #1a084e 100%);
+        }
+        .pulse-circle {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(128, 0, 128, 1) 0%, rgba(0, 0, 255, 1) 100%);
+            box-shadow: 0 0 50px rgba(128, 0, 128, 0.7), 0 0 100px rgba(0, 0, 255, 0.7);
+            animation: levitate 5s infinite; /* Slower speed */
+        }
+        @keyframes levitate {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10px);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .title {
+            position: absolute;
+            font-family: poetsen one;
+            top: 25px;
+            left: 25px;
+            font-size: 75px;
+            font-weight: bold;
+            color: #77d5f7; /* Pink */
+            text-shadow: 2px 2px 4px rgba(255, 249, 249, 0.5); /* Shadow effect */
+        }
+        .subtitle {
+            position: absolute;
+            font-family: poetsen one;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 40px;
+            font-weight: bold;
+            color: #ffffff; /* Black */
+        }
+        .ball-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        canvas {
+            box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.5); /* Shadow effect */
+        }
+
+        .mic {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+        .mic::before, .mic::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 100%;
+            z-index: 2;
+            box-shadow: 0 0 20px 20px #1c084f;
+        }
+        .mic::before {
+            width: 200px;
+            height: 200px;
+            background-color: #1a084e;
+        }
+        .mic::after {
+            width: 125px;
+            height: 125px;
+            background-color: #2f1e5f;
+            animation: circle-size 1s linear infinite alternate;
+        }
+        .mic-icon {
+            box-sizing: border-box;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(2.5);
+            display: block;
+            width: 8px;
+            height: 6px;
+            border-bottom-left-radius: 60px;
+            border-bottom-right-radius: 60px;
+            border: 1px solid;
+            border-top: 0;
+            margin-top: 10px;
+            z-index: 3;
+            color: #fff; /* Set mic color to white */
+        }
+        .mic-icon::before, .mic-icon::after {
+            content: "";
+            display: block;
+            box-sizing: border-box;
+            position: absolute;
+        }
+        .mic-icon::before {
+            width: 1px;
+            height: 2.5px;
+            top: calc(100% + 0.5px);
+            left: 50%;
+            transform: translate(-50%, 0);
+            background-color: #fff;
+        }
+        .mic-icon::after {
+            border: 1px solid;
+            width: 4px;
+            height: 9px;
+            left: 50%;
+            top: -5px;
+            border-radius: 2px;
+            transform: translate(-50%, 0);
+        }
+        .mic-shadow {
+            width: 200px;
+            height: 200px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border-radius: 100%;
+            z-index: 1;
+            box-shadow: 
+    5px -27.5px 15px 7.5px #823ca6, 
+    12px -5px 23.5px 5px #aab3d2, 
+    -10.5px -12.5px 48.5px 5px #5acee3, 
+    25.5px 2.5px 8.5px 5px #1b7d8f, 
+    1.5px 1px 38.5px 5px #f30bf5;
+            animation: shadow-rotate 1.5s linear infinite;
+            transform-origin: center;
+        }
+        @keyframes circle-size {
+            from {
+                width: 125px;
+                height: 125px;
+            }
+            to {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        @keyframes shadow-rotate {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Button styles */
+        .button-container {
+            position: absolute;
+            top: calc(50% + 200px);
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+        .button {
+            padding: 10px 30px;
+            background-color: #8400ff;
+            color: #fff;
+            font-size: 20px;
+            font-family: 'Poetsen One', cursive;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .button:hover {
+            background-color: #3b0e68;
+        }
+    </style>
+    <title>Mark-I</title>
+</head>
+<body>
+    <div class="title">Mark-I</div>
+    <div class="subtitle">Voice AI for Roofers</div>
+    
+    <div class="mic">
+        <a href="https://vapi.ai/?demo=true&shareKey=d6fc2fae-1ee4-425d-826d-f7e7cef7aa71&assistantId=48660d12-901e-4e7b-949a-ebefe89742f3">
+            <i class="mic-icon"></i>
+            <div class="mic-shadow"></div>
+        </a>
+    </div>
+
+    <div class="button-container">
+        <a href="https://vapi.ai/?demo=true&shareKey=d6fc2fae-1ee4-425d-826d-f7e7cef7aa71&assistantId=48660d12-901e-4e7b-949a-ebefe89742f3" class="button">Give it a try</a>
+    </div>
+    
+</body>
+</html>
